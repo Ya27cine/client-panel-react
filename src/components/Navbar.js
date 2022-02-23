@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 const Navbar = (args) => {
     const { title } = args;
     return (
-        <nav className="navbar navbar-expand-sm navbar-dark bg-success">
+        <nav className="navbar navbar-expand-sm navbar-dark bg-primary">
             <a className="navbar-brand" href="#">{title}</a>
 
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
