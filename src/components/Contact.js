@@ -4,6 +4,11 @@ import PropTypes from 'prop-types'
 
 
 class Contact extends Component {
+
+    state = {
+        showContactToggle: false
+    }
+
     render() {
         const { name, tel, email } = this.props.data;
         return (
@@ -16,11 +21,13 @@ class Contact extends Component {
                         </i>
                     </h4>
                     <div className="card-text">
-                        <ul className="list-group">
-                            <li className="list-group-item">{tel}</li>
-                            <li className="list-group-item">{email}</li>
+                        {(this.state.showContactToggle) ? (
+                            <ul className="list-group">
+                                <li className="list-group-item">{tel}</li>
+                                <li className="list-group-item">{email}</li>
+                            </ul>
+                        ) : null}
 
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -29,6 +36,9 @@ class Contact extends Component {
 
     showContact(name) {
         console.log('salem ', name)
+        this.setState({
+            showContactToggle: !this.state.showContactToggle
+        })
     }
 }
 
