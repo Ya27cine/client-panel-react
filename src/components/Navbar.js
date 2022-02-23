@@ -5,9 +5,18 @@ import PropTypes from 'prop-types'
 const Navbar = (args) => {
     const { title } = args;
     return (
-        <div>
-            <h1>{title}</h1>
-        </div>
+        <nav className="navbar navbar-expand-sm navbar-dark bg-success">
+            <a className="navbar-brand" href="#">{title}</a>
+
+            <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li className="nav-item active">
+                    <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                </li>
+
+
+            </ul>
+
+        </nav>
     )
 }
 
