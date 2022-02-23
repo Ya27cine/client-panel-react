@@ -9,7 +9,12 @@ class Contact extends Component {
         return (
             <div className="card">
                 <div className="card-body">
-                    <h4 className="card-title">{name}</h4>
+                    <h4 className="card-title">
+                        {name}
+                        <i onClick={this.showContact.bind(this, name)}
+                            className="fa fa-sort-down">
+                        </i>
+                    </h4>
                     <div className="card-text">
                         <ul className="list-group">
                             <li className="list-group-item">{tel}</li>
@@ -20,6 +25,10 @@ class Contact extends Component {
                 </div>
             </div>
         )
+    }
+
+    showContact(name) {
+        console.log('salem ', name)
     }
 }
 
