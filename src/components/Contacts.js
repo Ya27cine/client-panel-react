@@ -1,30 +1,34 @@
 import React, { Component } from 'react'
-
 import Contact from './Contact'
+import { Consumer } from './Context';
 
 class Contacts extends Component {
-    state = {
-        _user: '',
-        contacts: [
-            { id: 1, name: "KHELIFA YASSINE", tel: "07653452", email: "example@email.fr" },
-            { id: 2, name: "HAMOU SABAH", tel: "07653452", email: "example@email.fr" },
-            { id: 3, name: "ALLAF MOHAMMED", tel: "07653452", email: "example@email.fr" },
-            { id: 4, name: "Kevin Cedric", tel: "07653452", email: "example@email.fr" },
-        ]
-
-    }
 
     render() {
-        const { contacts } = this.state;
+
         return (
-            <div>
-
-                {contacts.map((contact) => (
-                    <Contact data={contact} key={contact.id} />
-                ))}
-
-            </div>
+            <Consumer>
+                {value => (
+                    <div>
+                        {value.contacts.map((contact) => (
+                            <Contact data={contact} key={contact.id}
+                                eventDelete={this.deleteContact.bind(this, contact.id)}
+                            />
+                        ))}
+                    </div>
+                )}
+            </Consumer>
         )
+    }
+
+    deleteContact(id) {
+        console.log('delete contact ! done ', id);
+        const { contacts } = this.state;
+        const new_list_contct = contacts.filter((contact) => (contact.id !== id))
+
+        this.setState({
+            contacts: new_list_contct
+        })
     }
 }
 

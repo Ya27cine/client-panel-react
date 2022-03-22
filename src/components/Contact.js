@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 class Contact extends Component {
 
     state = {
-        showContactToggle: false
+        showContactToggle: true
     }
 
     render() {
@@ -17,16 +17,23 @@ class Contact extends Component {
                     <h4 className="card-title">
                         {name}
                         <i onClick={this.showContact.bind(this, name)}
-                            className="fa fa-sort-down">
+                            className="fa fa-sort-down" style={{ cursor: 'pointer' }}>
+                        </i>
+                        <i className="fa fa-remove text-danger float-right" style={{ cursor: 'pointer' }}
+                            onClick={this.deleteOnclick}
+                        >
                         </i>
                     </h4>
                     <div className="card-text">
-                        {(this.state.showContactToggle) ? (
-                            <ul className="list-group">
-                                <li className="list-group-item">{tel}</li>
-                                <li className="list-group-item">{email}</li>
-                            </ul>
-                        ) : null}
+                        {
+                            (this.state.showContactToggle)
+                                ? (
+                                    <ul className="list-group">
+                                        <li className="list-group-item">{tel}</li>
+                                        <li className="list-group-item">{email}</li>
+                                    </ul>
+                                ) : null
+                        }
 
                     </div>
                 </div>
@@ -40,6 +47,10 @@ class Contact extends Component {
             showContactToggle: !this.state.showContactToggle
         })
     }
+    deleteOnclick = () => {
+        console.log('delete clicked ! ')
+        this.props.eventDelete();
+    }
 }
 
 Contact.defaultProps = {
@@ -50,6 +61,8 @@ Contact.defaultProps = {
 
 Contact.propTypes = {
     data: PropTypes.object.isRequired,
+    eventDelete: PropTypes.func.isRequired,
+
 }
 
 export default Contact;
