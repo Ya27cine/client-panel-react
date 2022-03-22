@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import { Consumer } from './Context';
 import PropTypes from 'prop-types'
 
 
@@ -10,34 +10,42 @@ class Contact extends Component {
     }
 
     render() {
-        const { name, tel, email } = this.props.data;
-        return (
-            <div className="card">
-                <div className="card-body">
-                    <h4 className="card-title">
-                        {name}
-                        <i onClick={this.showContact.bind(this, name)}
-                            className="fa fa-sort-down" style={{ cursor: 'pointer' }}>
-                        </i>
-                        <i className="fa fa-remove text-danger float-right" style={{ cursor: 'pointer' }}
-                            onClick={this.deleteOnclick}
-                        >
-                        </i>
-                    </h4>
-                    <div className="card-text">
-                        {
-                            (this.state.showContactToggle)
-                                ? (
-                                    <ul className="list-group">
-                                        <li className="list-group-item">{tel}</li>
-                                        <li className="list-group-item">{email}</li>
-                                    </ul>
-                                ) : null
-                        }
 
+        const { id, name, tel, email } = this.props.data;
+
+        return (
+            <Consumer>
+                {value => {
+                    const { dispatch } = value;
+                    return (<div div className="card" >
+                        <div className="card-body">
+                            <h4 className="card-title">
+                                {name}
+                                <i onClick={this.showContact.bind(this, name)}
+                                    className="fa fa-sort-down" style={{ cursor: 'pointer' }}>
+                                </i>
+                                <i className="fa fa-remove text-danger float-right" style={{ cursor: 'pointer' }}
+                                    onClick={this.deleteOnclick.bind(this, id, dispatch)}
+                                >
+                                </i>
+                            </h4>
+                            <div className="card-text">
+                                {
+                                    (this.state.showContactToggle)
+                                        ? (
+                                            <ul className="list-group">
+                                                <li className="list-group-item">{tel}</li>
+                                                <li className="list-group-item">{email}</li>
+                                            </ul>
+                                        ) : null
+                                }
+
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                    )
+                }}
+            </Consumer>
         )
     }
 
@@ -47,9 +55,12 @@ class Contact extends Component {
             showContactToggle: !this.state.showContactToggle
         })
     }
-    deleteOnclick = () => {
+    deleteOnclick = (id, dispatch) => {
         console.log('delete clicked ! ')
-        this.props.eventDelete();
+        dispatch({
+            type: 'DELETE_CONTACT',
+            payload: id
+        })
     }
 }
 
